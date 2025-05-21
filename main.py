@@ -384,7 +384,7 @@ def main(argv: list[str] | None = None):
         prog="PrecisionSync Evaluator — fast & clean (rev-X8)",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
-    pa.add_argument("--csv",      default="data/all_products.csv", help="CSV 路徑")
+    pa.add_argument("--csv",      default="all_products.csv", help="CSV 路徑")
     pa.add_argument("--single",   type=int, default=200,           help="單品抽樣數")
     pa.add_argument("--outfit",   type=int, default=200,           help="套裝抽樣數")
     pa.add_argument("--device",   choices=("cuda", "cpu"),         help="指定裝置")
