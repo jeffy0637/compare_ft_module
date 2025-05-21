@@ -126,10 +126,13 @@ async def download_all(urls: list[str], cfg: Cfg) -> list[Image.Image | None]:
     async with aiohttp.ClientSession(
         connector=aiohttp.TCPConnector(limit=cfg.dl_workers)
     ) as sess:
-        tasks = [_download(sess, u) for u in urls]
-        for idx, coro in tqdm(enumerate(asyncio.as_completed(tasks)),
-                              total=len(tasks), desc="Download"):
-            imgs[idx] = await coro
+        # 保留索引以維持輸出與輸入順序一致
+        tasks = {asyncio.create_task(_download(sess, u)): i
+                 for i, u in enumerate(urls)}
+        for fut in tqdm(asyncio.as_completed(tasks),
+                        total=len(tasks), desc="Download"):
+            idx = tasks[fut]
+            imgs[idx] = await fut
     return imgs
 
 # 翻譯模組 ------------------------------------------------------------
