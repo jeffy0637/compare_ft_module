@@ -1,0 +1,11 @@
+aiohttp
+numpy
+pandas
+torch
+Pillow
+tqdm
+torchvision
+transformers
+fashion-clip
+translators
+tabulate
